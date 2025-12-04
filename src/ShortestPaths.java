@@ -118,10 +118,24 @@ public class ShortestPaths {
 
       // TODO 4: create a ShortestPaths object, use it to compute shortest
       // paths data from the origin node given by origCode.
+        ShortestPaths sp = new ShortestPaths();
+        Node origin = graph.getNode(SidewalkOrigCode);
+        sp.compute(origin);
 
       // TODO 5:
       // If destCode was not given, print each reachable node followed by the
       // length of the shortest path to it from the origin.
+        if (SidewalkDestCode == null) {
+            System.out.println("Shortest paths from: " + SidewalkOrigCode);
+            for (Map.Entry<String, Node> entry : graph.getNodes().entrySet()) {
+                Node n = entry.getValue();
+                double dist = sp.shortestPathLength(n);
+                if (dist < Double.POSITIVE_INFINITY) {
+                    System.out.println(n.getId() + " : " + dist);
+                }
+            }
+            return;
+        }
 
       // TODO 6:
       // If destCode was given, print the nodes in the path from
