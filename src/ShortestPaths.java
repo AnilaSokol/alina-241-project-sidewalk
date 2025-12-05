@@ -31,6 +31,13 @@ public class ShortestPaths {
         // TODO 1: implement Dijkstra's algorithm to fill paths with
         // shortest-path data for each Node reachable from origin.
 
+        // min priority queue ordered by the distance
+
+        // need to initialize origin
+
+        // Dijkstra - a while loop
+        // then check each neighbor in a for loop I think
+
     }
 
     /** Returns the length of the shortest path from the origin to destination.
