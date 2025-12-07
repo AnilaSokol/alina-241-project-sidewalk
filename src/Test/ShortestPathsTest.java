@@ -286,4 +286,54 @@ public class ShortestPathsTest {
       assertEquals(Double.POSITIVE_INFINITY, sp.shortestPathLength(D), 1e-6);
       assertNull(sp.shortestPath(D));
     }
+
+    // graph with cycles
+    @Test
+    public void testWithCycles() {
+      Graph g = new Graph();
+      Node A = g.getNode("A");
+      Node B = g.getNode("B");
+      Node C = g.getNode("C");
+
+      g.addEdge(A, B, 1);
+      g.addEdge(B, C, 1);
+      g.addEdge(C, A, 10);
+
+      ShortestPaths sp = new ShortestPaths();
+      sp.compute(A);
+
+      assertEquals(2.0, sp.shortestPathLength(C), 1e-6);
+    }
+
+    // first path discovered isn't the best
+    @Test
+    public void testMultipleRelaxations() {
+      Graph g = new Graph();
+      Node A = g.getNode("A");
+      Node B = g.getNode("B");
+      Node C = g.getNode("C");
+
+      g.addEdge(A, B, 10);
+      g.addEdge(A, C, 1);
+      g.addEdge(C, B, 1);
+
+      ShortestPaths sp = new ShortestPaths();
+      sp.compute(A);
+
+      assertEquals(2.0, sp.shortestPathLength(B), 1e-6);
+    }
+
+    // self loops shouldn't affect the shortest path
+    @Test
+    public void testSelfLoop() {
+      Graph g = new Graph();
+      Node A = g.getNode("A");
+
+      g.addEdge(A,A,5);
+
+      ShortestPaths sp = new ShortestPaths();
+      sp.compute(A);
+
+      assertEquals(0.0, sp.shortestPathLength(A), 1e-6);
+    }
 }
