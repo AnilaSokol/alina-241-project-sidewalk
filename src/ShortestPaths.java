@@ -28,6 +28,11 @@ public class ShortestPaths {
      * back pointer to the previous node on the shortest path.
      * Precondition: origin is a node in the Graph.*/
     public void compute(Node origin) {
+
+        if (origin == null) {
+            throw new IllegalArgumentException("Origin node is null.");
+        }
+
         paths = new HashMap<Node,PathData>();
 
         // TODO 1: implement Dijkstra's algorithm to fill paths with
@@ -54,6 +59,11 @@ public class ShortestPaths {
             for (Map.Entry<Node, Double> entry : currentNode.getNeighbors().entrySet()) {
                 Node neighbor = entry.getKey();
                 double edgeWeight = entry.getValue();
+
+                if (edgeWeight < 0) {
+                    System.err.println("Negative edge weight from " + currentNode.getId());
+                }
+                
                 double newDist = currentDist + edgeWeight;
 
                 PathData pd = paths.get(neighbor);
